@@ -1,29 +1,69 @@
 jQuery(document).ready(function($){
 
-  $('#status').click(function(){
-    cmd('getinfo',[],function(data){
-      //console.log(data);
-      var info = [];
-      for(k in data){
-        info.push(k+':'+data[k])
-      }
-      $('#wallet').html(info.join('<br>'));
-    });
-    return false;
+  App = Ember.Application.create();
+  
+  // Set Router
+  
+  App.Router.map(function() {
+  
+    this.route("overview", { path: "/overview" });
+    this.route("send", { path: "/send" });
+    this.route("receive", { path: "/receive" });
+    this.route("transactions", { path: "/transactions" });
+    
   });
-
-  $('#txs').click(function(){
-    cmd('listtransactions',[],function(data){
-      //console.log(data);
-      var info = [];
-      $(data).each(function(i,tx){
-        info.push(JSON.stringify(tx))
+  
+  App.OverviewRoute = Ember.Route.extend({
+    
+    setupController: function(controller){
+      cmd( 'getinfo',[],function(data){
+        controller.set( 'info',data );
+      } );
+    }
+    
+  });
+  
+  App.TransactionsRoute = Ember.Route.extend({
+    
+    setupController: function(controller){
+      cmd( 'listtransactions',[ "",10 ],function(data){
+        controller.set( 'transactions',data.reverse() );
       });
-      $('#wallet').html(info.join('<hr/>'));
-    });
-    return false;
+    }
+    
   });
+  
+  // Set Controller
+  
+  // Set Helpers
+  
+  Ember.Handlebars.registerBoundHelper('showDate', function( time ) {
+    var pad = function( variable ){
+      return ('0'+variable).substr(-2,2);
+    }
+    var date = new Date();
+    date.setTime( time*1000 );
+    return date.getFullYear()+'/'+(parseInt(date.getMonth())+1)+'/'+date.getDate()+' '+pad(date.getHours())+':'+pad(date.getMinutes())+':'+pad(date.getSeconds());
+  });
+  
+  Ember.Handlebars.registerBoundHelper('showNegative', function( amount ) {
+    if( amount < 0 ){
+      return new Handlebars.SafeString('<span class="negative">'+amount+'</span>');
+    }
+    else{
+      return amount;
+    }
+  });
+  
+  //set Views
+  
+  
+  
+
+  
 });
+
+  
 
 var cmd = function(method,params,cb){
   var $ = jQuery;
