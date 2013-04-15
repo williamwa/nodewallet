@@ -8,28 +8,97 @@
     <link href="css/main.css" rel="stylesheet" media="screen">
   </head>
   <body>
-    <div class="container-narrow">
+  
+    <script type="text/x-handlebars" data-template-name="application">
+    
+      <div class="container-narrow">
       <div class="masthead">
+        
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a id="status" href="#">Status</a></li>
-          <li><a id="receive" href="#">Receive</a></li>
-          <li><a id="send" href="#">Send</a></li>
-          <li><a id="txs" href="#">Transactions</a></li>
+          <li>{{#linkTo "overview"}}Overview{{/linkTo}}</li>
+          <li>{{#linkTo "send"}}Send{{/linkTo}}</li>
+          <li>{{#linkTo "receive"}}Receive{{/linkTo}}</li>
+          <li>{{#linkTo "transactions"}}Transactions{{/linkTo}}</li>
         </ul>
+        
         <h3 class="muted">My Node Wallet</h3>
       </div>
       <hr>
       <div class="row-fluid">
-        <div id="wallet"></div>
+        <div id="wallet">{{outlet}}</div>
       </div>
-    </div> 
-    <script type="text/x-handlebars" data-template-name="application">
-      Test
+    </div>
     </script>
+    
+    
+    <script type="text/x-handlebars" data-template-name="overview">
+    
+      <div class="span6">
+        <h4>Wallet</h4>
+        <p>Balance: {{info.balance}} BTC</p>
+        <p>Unconfirmed: BTC</p>
+        <ul>
+          <li>Version: {{info.version}}</li>
+          <li>Protocol version: {{info.protocolversion}}</li>
+          <li>Connections: {{info.connections}}</li>
+          
+          {{#if info.testnet}}
+            <li>Testnet: {{info.testnet}}</li>
+          {{/if}}
+          
+          {{#if info.errors}}
+            <li>Errors: {{info.errors}}</li>
+           {{/if}}
+           
+        </ul>
+      </div>
+      <div class="span6"></div>
+      
+    </script>
+    
+    <script type="text/x-handlebars" data-template-name="send">
+      
+    </script>
+    
+    <script type="text/x-handlebars" data-template-name="receive">
+      
+    </script>
+    
+    <script type="text/x-handlebars" data-template-name="transactions">
+      <table class="table table-striped">
+      
+        <thead>
+          <tr>
+            <td>#</td>
+            <td>Date</td>
+            <td>Type</td>
+            <td>Address</td>
+            <td>Amount</td>
+          </tr>
+        </thead>
+        
+        <tbody>
+        
+        </tbody>
+          {{#each transactions}}
+            <tr>
+              <td>{{confirmations}}</td>
+              <td>{{showDate time}}</td>
+              <td>{{category}}</td>
+              <td>{{address}}</td>
+              <td>{{showNegative amount}}</td>
+            </tr>
+          {{/each}}
+      </table>
+    </script>
+    
+    
+    
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/handlebars-1.0.0-rc.3.js"></script>
     <script src="js/ember-1.0.0-rc.2.js"></script>
     <script src="js/main.js"></script>
+    
   </body>
 </html>
