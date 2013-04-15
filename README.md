@@ -1,5 +1,7 @@
 A Bitcoin Wallet based on NodeJS and Bitcoind RPC API
 
+![Screenshot](http://s22.postimg.org/sa9eq44wt/sc3.jpg)
+
 Plan:
 
 1. RPC proxy
