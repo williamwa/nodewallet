@@ -1,0 +1,9 @@
+body {
+  padding: 40px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.container-narrow{
+	margin: 0 auto;
+	max-width: 700px;
+}
