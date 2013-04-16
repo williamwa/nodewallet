@@ -12,16 +12,16 @@
     <script type="text/x-handlebars" data-template-name="application">
     
       <div class="container-narrow">
-      <div class="masthead">
-        
-        <ul class="nav nav-pills pull-right">
-          <li>{{#linkTo "overview"}}Overview{{/linkTo}}</li>
-          <li>{{#linkTo "send"}}Send{{/linkTo}}</li>
-          <li>{{#linkTo "receive"}}Receive{{/linkTo}}</li>
-          <li>{{#linkTo "transactions"}}Transactions{{/linkTo}}</li>
-        </ul>
-        
-        <h3 class="muted">My Node Wallet</h3>
+        <div class="masthead">
+          
+          <ul class="nav nav-pills pull-right">
+            <li>{{#linkTo "overview"}}Overview{{/linkTo}}</li>
+            <li>{{#linkTo "send"}}Send{{/linkTo}}</li>
+            <li>{{#linkTo "receive"}}Receive{{/linkTo}}</li>
+            <li>{{#linkTo "transactions"}}Transactions{{/linkTo}}</li>
+          </ul>
+          
+          <h3 class="muted">My Node Wallet</h3>
       </div>
       <hr>
       <div class="row-fluid">
@@ -30,6 +30,11 @@
     </div>
     </script>
     
+    <script type="text/x-handlebars" data-template-name="error">
+      <div id="commonError">
+        <p class="alert alert-danger">Error,server connection error!</p>
+      </div>
+    </script>
     
     <script type="text/x-handlebars" data-template-name="overview">
     
@@ -58,38 +63,107 @@
     
     <script type="text/x-handlebars" data-template-name="send">
       
+      <ul id="sendsList">
+        <li class="sendItem">
+          <form class="form-horizontal">
+          
+            <div class="control-group">
+              <label class="control-label" for="payToAddress">Pay To:</label>
+              <div class="controls">
+                <input type="text" id="payToAddress" class="span9" placeholder="Enter a Bitcoin Address">
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label" for="payToAmount">Amount:</label>
+              <div class="controls">
+                <input type="text" id="payToAmount" class="span3" value="0.00000000">&nbsp;&nbsp;BTC
+              </div>
+            </div>
+            
+          </form>
+        </li>
+      </ul>
+      
+    <br />
+      
+    <div id="sendsResult">
+      
+    </div>
+    
+    <br />  
+    
+    {{#view App.RecipientAdd}}
+      <a href="#/send" class="btn btn-primary" style="float:left;"><i class="icon-plus icon-white"></i> Add Recipient</a>
+    {{/view}}
+    
+    {{#view App.RecipientRemove}}
+      <a href="#/send" class="btn btn-danger" style="float:left;margin-left:10px;"><i class="icon-remove icon-white"></i> Clear All</a>
+    {{/view}}
+    
+    {{#view App.AmountSend}}
+       <a href="#/send" class="btn btn-success" style="float:right;"><i class="icon-ok icon-white"></i> Send</a>
+    {{/view}}
+      
     </script>
     
     <script type="text/x-handlebars" data-template-name="receive">
+    
+      <div class="wrapperDiv">
+        <table class="table table-striped" id="addressesList">
+          
+          <thead>
+            <tr>
+              <td>Address</td>
+            </tr>
+          </thead>
+          
+          <tbody>
+            {{#each addresses}}
+              <tr>
+                <td>{{this}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+          
+        </table>
+      </div>
+      
+      {{#view App.AddressAdd}}
+        <a href="#/receive" class="btn btn-primary"><i class="icon-plus icon-white"></i> New Address</a>
+      {{/view}}
       
     </script>
     
     <script type="text/x-handlebars" data-template-name="transactions">
-      <table class="table table-striped">
-      
-        <thead>
-          <tr>
-            <td>#</td>
-            <td>Date</td>
-            <td>Type</td>
-            <td>Address</td>
-            <td>Amount</td>
-          </tr>
-        </thead>
+    
+      <div class="wrapperDiv">
+        <table class="table table-striped">
         
-        <tbody>
-        
-        </tbody>
-          {{#each transactions}}
+          <thead>
             <tr>
-              <td>{{confirmations}}</td>
-              <td>{{showDate time}}</td>
-              <td>{{category}}</td>
-              <td>{{address}}</td>
-              <td>{{showNegative amount}}</td>
+              <td>#</td>
+              <td>Date</td>
+              <td>Type</td>
+              <td>Address</td>
+              <td>Amount</td>
             </tr>
-          {{/each}}
-      </table>
+          </thead>
+          
+          <tbody>
+          
+          </tbody>
+            {{#each transactions}}
+              <tr>
+                <td>{{confirmations}}</td>
+                <td>{{showDate time}}</td>
+                <td>{{category}}</td>
+                <td>{{address}}</td>
+                <td>{{showNegative amount}}</td>
+              </tr>
+            {{/each}}
+        </table>
+      </div>
     </script>
     
     
