@@ -3,6 +3,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+div#commonError{
+  /* display: none; */
+}
+
 .container-narrow{
 	margin: 0 auto;
 	max-width: 700px;
@@ -15,5 +19,15 @@ span.negative{
 div.wrapperDiv{
   height: 550px;
   overflow: auto;
+  margin-bottom: 20px;
+}
+
+ul#sendsList{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+li.sendItem{
+  border-bottom: 1px #CCC dotted;
   margin-bottom: 20px;
 }
