@@ -57,11 +57,12 @@ jQuery(document).ready(function($){
   });
   
   Ember.Handlebars.registerBoundHelper('showNegative', function( amount ) {
+     
     if( amount < 0 ){
-      return new Handlebars.SafeString('<span class="negative">'+amount+'</span>');
+      return new Handlebars.SafeString('<span class="negative">'+amount.toString().expandExponential()+'</span>');
     }
     else{
-      return amount;
+      return amount.toString().expandExponential();
     }
   });
   
@@ -121,7 +122,7 @@ jQuery(document).ready(function($){
         var payToAddress = $(e).children('form').children('.control-group').children('.controls').children('input#payToAddress').val();
         var payToAmount = $(e).children('form').children('.control-group').children('.controls').children('input#payToAmount').val();
         
-        if( payToAmount == '' || parseFloat(payToAmount) == 0 ){ 
+        if( payToAmount == '' || parseFloat(payToAmount) == 0 || parseFloat(payToAmount) < 0.00000001 ){ 
           //payToAmount = 0.00000000;
           $(e).children('form').children('.control-group:first').next().addClass('error');
           $(e).children('form').children('.control-group:first').next().children('.controls').append('<span class="errMsg help-inline">Error,invalid amount!</span>');
@@ -177,7 +178,6 @@ var cmd = function(method,params,cb){
   });
   $.post('/cmd',{rpc:rpc},function(data){
   
-    console.log(data);
     if( typeof data.errno != "undefined"){
       window.location.href = '#/error';
     }
@@ -192,3 +192,12 @@ function BtcAddressValidate( address ){
   var pattern = /^[a-zA-Z1-9]{27,35}$/;
   return pattern.test( address );
 }
+
+String.prototype.expandExponential = function(){
+    return this.replace(/^([+-])?(\d+).?(\d*)[eE]([-+]?\d+)$/, function(x, s, n, f, c){
+        var l = +c < 0, i = n.length + +c, x = (l ? n : f).length,
+        c = ((c = Math.abs(c)) >= x ? c - x + l : 0),
+        z = (new Array(c + 1)).join("0"), r = n + f;
+        return (s || "") + (l ? r = z + r : r += z).substr(0, i += l ? z.length : 0) + (i < r.length ? "." + r.substr(i) : "");
+    });
+};
