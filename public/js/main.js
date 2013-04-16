@@ -33,6 +33,15 @@ jQuery(document).ready(function($){
     
   });
   
+  App.ReceiveRoute = Ember.Route.extend({
+  
+    setupController: function(controller){
+      cmd( 'getaddressesbyaccount',[""],function(data){
+        controller.set( 'addresses',data );
+      });
+    }
+  });
+  
   // Set Controller
   
   // Set Helpers
@@ -57,6 +66,20 @@ jQuery(document).ready(function($){
   
   //set Views
   
+  App.AddressAdd = Ember.View.create({
+    name: 'address_add'
+  });
+  App.AddressAdd = Ember.View.extend({
+  
+    click: function(evt) {
+      cmd('getnewaddress',[""],function(data){
+        if( $('table#addressesList').length > 0 ){
+          $('table#addressesList tbody').append('<tr><td>'+data+'</td></tr>');
+        }
+      });
+    }
+    
+  });
   
   
 

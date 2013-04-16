@@ -61,35 +61,62 @@
     </script>
     
     <script type="text/x-handlebars" data-template-name="receive">
+    
+      <div class="wrapperDiv">
+        <table class="table table-striped" id="addressesList">
+          
+          <thead>
+            <tr>
+              <td>Address</td>
+            </tr>
+          </thead>
+          
+          <tbody>
+            {{#each addresses}}
+              <tr>
+                <td>{{this}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+          
+        </table>
+      </div>
+      
+      {{#view App.AddressAdd}}
+        <a href="#/receive" class="btn btn-primary"><i class="icon-plus icon-white"></i> New Address</a>
+      {{/view}}
       
     </script>
     
     <script type="text/x-handlebars" data-template-name="transactions">
-      <table class="table table-striped">
-      
-        <thead>
-          <tr>
-            <td>#</td>
-            <td>Date</td>
-            <td>Type</td>
-            <td>Address</td>
-            <td>Amount</td>
-          </tr>
-        </thead>
+    
+      <div class="wrapperDiv">
+        <table class="table table-striped">
         
-        <tbody>
-        
-        </tbody>
-          {{#each transactions}}
+          <thead>
             <tr>
-              <td>{{confirmations}}</td>
-              <td>{{showDate time}}</td>
-              <td>{{category}}</td>
-              <td>{{address}}</td>
-              <td>{{showNegative amount}}</td>
+              <td>#</td>
+              <td>Date</td>
+              <td>Type</td>
+              <td>Address</td>
+              <td>Amount</td>
             </tr>
-          {{/each}}
-      </table>
+          </thead>
+          
+          <tbody>
+          
+          </tbody>
+            {{#each transactions}}
+              <tr>
+                <td>{{confirmations}}</td>
+                <td>{{showDate time}}</td>
+                <td>{{category}}</td>
+                <td>{{address}}</td>
+                <td>{{showNegative amount}}</td>
+              </tr>
+            {{/each}}
+        </table>
+      </div>
     </script>
     
     
