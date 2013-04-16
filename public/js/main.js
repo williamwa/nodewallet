@@ -66,10 +66,7 @@ jQuery(document).ready(function($){
   });
   
   //set Views
-  
-  App.AddressAdd = Ember.View.create({
-    name: 'address_add'
-  });
+
   App.AddressAdd = Ember.View.extend({
   
     click: function(evt) {
@@ -82,9 +79,6 @@ jQuery(document).ready(function($){
     
   });
   
-  App.RecipientAdd = Ember.View.create({
-    name: 'recipient_add'
-  });
   App.RecipientAdd = Ember.View.extend({
   
     click: function(){
@@ -93,18 +87,12 @@ jQuery(document).ready(function($){
     }
   });
   
-  App.RecipientRemove = Ember.View.create({
-    name: 'recipient_remove'
-  });
   App.RecipientRemove = Ember.View.extend({
     click: function(){
       $('li.brandNew').remove();
     }
   });
   
-  App.AmountSend = Ember.View.create({
-    name: 'amount_send'
-  });
   App.AmountSend = Ember.View.extend({
     click: function(){
     
@@ -166,8 +154,6 @@ jQuery(document).ready(function($){
   });
   
 });
-
-
 
 var cmd = function(method,params,cb){
   var $ = jQuery;
