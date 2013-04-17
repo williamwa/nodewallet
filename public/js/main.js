@@ -80,7 +80,7 @@ jQuery(document).ready(function($){
         return new Handlebars.SafeString('<i class="icon-ok"></i>');
       }
       if( parseInt(confirmations) == 0 ){
-        return new Handlebars.SafeString('?');
+        return new Handlebars.SafeString('<i class="icon-question-sign"></i>');
       }
     }
   });
