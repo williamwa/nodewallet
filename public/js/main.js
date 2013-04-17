@@ -104,8 +104,6 @@ jQuery(document).ready(function($){
   });
   
   Ember.Handlebars.registerBoundHelper('expandExponential',function(amount){
-    //console.log(amount);
-    //return amount.toString().expandExponential();
     return (amount*1).toString().expandExponential();
   });
   
