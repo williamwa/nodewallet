@@ -153,7 +153,7 @@
           <tbody>
             {{#each transactions}}
               {{#view App.Tx}}
-                <td>{{confirmations}}</td>
+                <td>{{showPercentage confirmations category}}</td>
                 <td>{{showDate time}}</td>
                 <td>{{category}}</td>
                 <td>{{address}}</td>
@@ -164,6 +164,10 @@
             
         </table>
       </div>
+    </script>
+    
+    <script type="text/x-handlebars" data-template-name="complete">
+      <i class="icon"></i>
     </script>
     
     <script type="text/x-handlebars" data-template-name="transaction">

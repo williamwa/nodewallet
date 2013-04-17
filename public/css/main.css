@@ -40,6 +40,10 @@ tr.tranItem:hover{
   background-color: #EEE !important;
 }
 
+tr.tranItem:hover td{
+  background-color: #EEE !important;
+}
+
 tr.active,td.active{
   background-color: #EEE !important;
 }

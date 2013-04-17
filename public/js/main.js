@@ -65,6 +65,26 @@ jQuery(document).ready(function($){
   
   // Set Helpers
   
+  Ember.Handlebars.registerBoundHelper('showPercentage',function( confirmations,category ){
+    if( category == 'generate' ){
+      var total = 120;
+    }
+    else{
+      var total = 6;
+    }
+    if( parseInt(confirmations) > 0 && parseInt(confirmations) < total ){
+      return new Handlebars.SafeString(confirmations+'/'+total);
+    }
+    else{
+      if( parseInt(confirmations) >= total ){
+        return new Handlebars.SafeString('<i class="icon-ok"></i>');
+      }
+      if( parseInt(confirmations) == 0 ){
+        return new Handlebars.SafeString('?');
+      }
+    }
+  });
+  
   Ember.Handlebars.registerBoundHelper('showDate', function( time ) {
     var pad = function( variable ){
       return ('0'+variable).substr(-2,2);
