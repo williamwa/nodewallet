@@ -11,6 +11,7 @@ jQuery(document).ready(function($){
     this.route("send", { path: "/send" });
     this.route("receive", { path: "/receive" });
     this.route("transactions", { path: "/transactions" });
+    this.route("transaction",{ path: "/transaction/:txid" });
     
   });
   
@@ -27,9 +28,11 @@ jQuery(document).ready(function($){
   App.TransactionsRoute = Ember.Route.extend({
     
     setupController: function(controller){
-      cmd( 'listtransactions',[ "",10 ],function(data){
+    
+      cmd( 'listtransactions',[ "",100 ],function(data){
         controller.set( 'transactions',data.reverse() );
       });
+
     }
     
   });
@@ -41,6 +44,21 @@ jQuery(document).ready(function($){
         controller.set( 'addresses',data );
       });
     }
+  });
+  
+  App.TransactionRoute = Ember.Route.extend({
+    
+    model: function(params) {
+      return {txid: params.txid};
+    },
+    
+    setupController: function( controller,model ){
+      cmd('gettransaction',[model.txid],function( data ){
+        controller.set('content',data);
+      });
+      
+    }
+    
   });
   
   // Set Controller
@@ -57,7 +75,7 @@ jQuery(document).ready(function($){
   });
   
   Ember.Handlebars.registerBoundHelper('showNegative', function( amount ) {
-     
+   
     if( amount < 0 ){
       return new Handlebars.SafeString('<span class="negative">'+amount.toString().expandExponential()+'</span>');
     }
@@ -66,11 +84,49 @@ jQuery(document).ready(function($){
     }
   });
   
+  Ember.Handlebars.registerBoundHelper('expandExponential',function(amount){
+    //console.log(amount);
+    //return amount.toString().expandExponential();
+    return (amount*1).toString().expandExponential();
+  });
+  
+  Ember.Handlebars.registerBoundHelper("showDetails",function( details ){
+    
+    
+    var i;
+    for( i in details ){
+      var e = details[i];
+      if( typeof e == "object" ){
+        if( typeof e.category != "undefined" ){
+          switch( e.category ){
+            case 'send':var text = '<p><strong>To</strong>: '+e.address+'</p>'; break;
+            case 'receive':var text = '<p><strong>To</strong>: '+e.address+'</p>'; break;
+            case 'generate':var text = '<p><strong>Generate</strong>: '+e.address+'</p>'; break;
+          }
+        }
+        $('div#details').append(text);
+      }
+    }
+    
+  });
+  
   //set Views
-
+  
+  App.Tx = Ember.View.extend({
+    
+    tagName: 'tr',
+    classNames: ['tranItem'],
+    click: function(evt){
+      
+      var txid = this.get('context').txid;
+      window.location.href = '#/transaction/'+txid;
+    }
+    
+  });
+  
   App.AddressAdd = Ember.View.extend({
   
-    click: function(evt) {
+    click: function() {
       cmd('getnewaddress',[""],function(data){
         if( $('table#addressesList').length > 0 ){
           $('table#addressesList tbody').append('<tr><td>'+data+'</td></tr>');

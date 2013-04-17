@@ -31,3 +31,11 @@ li.sendItem{
   border-bottom: 1px #CCC dotted;
   margin-bottom: 20px;
 }
+
+tr.tranItem{
+  cursor: pointer;
+}
+
+tr.tranItem:hover{
+  background-color: #EEE !important;
+}

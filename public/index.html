@@ -151,22 +151,34 @@
           </thead>
           
           <tbody>
-          
-          </tbody>
             {{#each transactions}}
-              <tr>
+              {{#view App.Tx}}
                 <td>{{confirmations}}</td>
                 <td>{{showDate time}}</td>
                 <td>{{category}}</td>
                 <td>{{address}}</td>
                 <td>{{showNegative amount}}</td>
-              </tr>
+              {{/view}}
             {{/each}}
+          </tbody>
+            
         </table>
       </div>
     </script>
     
+    <script type="text/x-handlebars" data-template-name="transaction">
+      
+      <div class="wrapperDiv">
+        <p><strong>Status</strong>: {{confirmations}} confirmations</p>
+        <p><strong>Date</strong>: {{showDate time}}</p>
+        <div id="details">{{showDetails details}}</div>
+        <p><strong>Amount</strong>: {{expandExponential amount}}</p>
+        <p><strong>Transaction ID</strong>: {{txid}}</p>
+      </div>
+     
+    </script>
     
+   
     
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
