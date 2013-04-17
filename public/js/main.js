@@ -27,7 +27,7 @@ jQuery(document).ready(function($){
   App.TransactionsRoute = Ember.Route.extend({
     
     setupController: function(controller){
-      cmd( 'listtransactions',[ "",10 ],function(data){
+      cmd( 'listtransactions',[ "",100 ],function(data){
         controller.set( 'transactions',data.reverse() );
       });
     }
