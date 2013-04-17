@@ -129,7 +129,9 @@ jQuery(document).ready(function($){
     click: function() {
       cmd('getnewaddress',[""],function(data){
         if( $('table#addressesList').length > 0 ){
-          $('table#addressesList tbody').append('<tr><td>'+data+'</td></tr>');
+          
+          $('table#addressesList tbody').append('<tr class="active"><td class="active">'+data+'</td></tr>');
+          $('div.wrapperDiv').scrollTop(9999);
         }
       });
     }

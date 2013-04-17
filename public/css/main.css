@@ -39,3 +39,7 @@ tr.tranItem{
 tr.tranItem:hover{
   background-color: #EEE !important;
 }
+
+tr.active,td.active{
+  background-color: #EEE !important;
+}
